@@ -10,7 +10,14 @@
     font-family: Evogria;
 }
 
+.layer-back {
+    background-image: linear-gradient(to right, #454f5c, #3b4551, #313a47, #27313d, #1e2733);
+    width: 100vw;
+    height: 100vh;
+}
+
 .container {
+    display: grid;
     position: relative;
     background-image: url('../../public/assets/background.jpg');
     background-repeat: no-repeat;
@@ -20,48 +27,114 @@
     width: 100vw;
     -webkit-clip-path:polygon(0 0, 0 53%, 46% 100%, 100% 46%, 100% 0);
     clip-path: polygon(0 0, 0 50%, 46% 100%, 100% 50%, 100% 0);
-    display: grid;
+    z-index: 5;
 }
 
-.container .layer{
+.container .layer {
     width: 100vw;
-    height: 100vh;
     background-color: rgba(33, 33, 29, 0.25);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.container .layer h1 {
-    position: relative;
-    font-size: 5rem;
-    color:  rgba(33, 33, 29, 0.25);;
+.container .layer .title-main {    
+    position: relative;    
     overflow: hidden;
-    -webkit-text-stroke: 0.2vw #2f4858;
 }
 
-.container .layer h1::before {
-    content: 'FIFA hola';
+.container .layer .title-main::before {
+    content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    color: #2c49a0;
-    -webkit-text-stroke: 0vw #2f4858;
-    border-right: 5px solid #2c49a0;
-    overflow: hidden;
-    animation: animate 4s linear infinite
+    right: 0;
+    width: 2px;
+    height: 6rem;
+    background: #03e9f4;
+    animation: blinkCursor 0.8s steps(3) infinite;
 }
 
-@keyframes animate {
-    0%, 10%, 100% {
-        width: 0;
+@keyframes blinkCursor {
+    0%,75% {
+        opacity: 1;
     }
-    70%, 90% {
-        width: 100%;
+    76%,100% {
+        opacity: 0;
     }
 }
+
+.container .layer .title-main h1 {
+    position: relative;
+    letter-spacing: 5px;
+    font-size: 5rem;
+    color:  white;
+    overflow: hidden;
+    animation: typing 8s steps(21) infinite;
+}
+
+@keyframes typing {
+    0%,90%,100% {
+        width: 0;
+    }    
+    30%,60% {
+        width: 62rem;
+    }
+}
+
+.card {
+    display: flex;
+    background-color: gray;
+    margin-left: 2rem;
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    width: 100%;
+    margin-right: 5rem;
+    height: 100%;
+    background: #2196f3;
+    transform: skewY(345deg);
+    transition: 0.5s;
+}
+
+.card:hover::before {
+    top: -70%;
+    transform: skewY(390deg);
+}
+
+.card::after {
+    content: 'texto';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-weight: 600;
+    font-size: 5em;
+    color: rgba(0, 0, 0, 0.1);
+}
+
+.layer-back .imgBx {
+    background-image: url('../../public/assets/2.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 27%;
+    height: 35rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    top: -75%;
+    z-index: 5;
+}
+
 
 .container .layer .player_card {
     width: 200px;
