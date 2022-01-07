@@ -1,16 +1,19 @@
-import  { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppFut21 } from '../components/AppFut21';
-import { Prueba } from '../components/Prueba';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { App } from "../components/App";
+import { ContentMain } from "../components/content/ContentMain";
 
-export const AppRouter = () => {
-    return (
-        <BrowserRouter>
-        <AppFut21 />
-        <Routes>
-            <Route path="/" element={<Prueba />}/>
-            <Route path="/search" element={<Prueba />}/>
-            <Route path="/team" element={<Prueba />}/>
-        </Routes>
-        </BrowserRouter>
-    )
-}
+
+export const AppRouter = () => {  
+  return (
+    <BrowserRouter>    
+      <App />
+      <Routes>
+        <Route path="/" element={<ContentMain />} />
+        <Route path="/search" element={<ContentMain />} />
+        <Route path="/team" element={<ContentMain />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+

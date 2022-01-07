@@ -27,6 +27,9 @@ func GetPlayersNames(e echo.Context) (err error) {
 	order := e.QueryParam("order")
 	page := e.QueryParam("page")
 
+	if search == "" && order == "" {
+
+	}
 	pageIntm, err := strconv.ParseInt(page, 10, 0)
 	if err != nil {
 		log.Panic(err)

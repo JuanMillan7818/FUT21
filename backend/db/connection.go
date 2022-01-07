@@ -256,6 +256,75 @@ func GetNamesPlayers(search, order string, page int) md.TeamResponse {
 	return response
 }
 
+func GetPlayersAll(page int) md.TeamResponse {
+	var totalItemsAux string
+	var list []md.Player
+
+	db := ConnectedDB(os.Getenv("DBNAME"))
+
+	tx, err := db.Begin()
+	if err != nil {
+		log.Panic(err)
+	}
+
+	sql := `SELECT * FROM Players FORCE INDEX(PRIMARY) GROUP BY first_name asc, last_name asc LIMIT ?,?`
+	sql_aux := `SELECT COUNT(*) AS COUNT FROM Players GROUP BY first_name asc, last_name asc`
+
+	stmt, err := db.Prepare(sql)
+	stmt_aux, err_aux := db.Prepare(sql_aux)
+	if err != nil || err_aux != nil {
+		log.Panic(err)
+	}
+
+	page--
+	result, err := stmt.Query((parseInt(os.Getenv("PAGINATION")) * page), parseInt(os.Getenv("PAGINATION")))
+	page++
+	result_aux, err_aux := stmt_aux.Query()
+	if err != nil || err_aux != nil {
+		log.Panic(err)
+	}
+
+	tx.Commit()
+
+	for result.Next() {
+		var tmp md.Player
+		if err := result.Scan(
+			&tmp.Id,
+			&tmp.FirstName,
+			&tmp.LastName,
+			&tmp.PositionFull,
+			&tmp.Natal,
+			&tmp.Club); err != nil {
+			log.Panic(err)
+		}
+		list = append(list, tmp)
+	}
+
+	result_aux.Next()
+	if result_aux.Scan(&totalItemsAux); err != nil {
+		log.Panic(err)
+	}
+	totalItems, err := strconv.Atoi(totalItemsAux)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	if list == nil {
+		list = []md.Player{}
+	}
+	response := md.TeamResponse{
+		Page:       page,
+		Items:      len(list),
+		TotalItems: totalItems,
+		TotalPages: int((math.Ceil(((float64)(totalItems) / float64(parseInt(os.Getenv("PAGINATION"))))))),
+		Players:    list,
+	}
+
+	defer result.Close()
+	defer db.Close()
+	return response
+}
+
 func parseInt(s string) int {
 	n, err := strconv.Atoi(s)
 	if err != nil {
