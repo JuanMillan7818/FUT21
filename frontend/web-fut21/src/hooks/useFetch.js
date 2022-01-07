@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 
-export const useFetch = (url, {method, body}) => {
+export const useFetch = (url, { method, body }) => {
   const isMounted = useRef(true);
 
   const [state, setState] = useState({
@@ -13,36 +14,35 @@ export const useFetch = (url, {method, body}) => {
 
   useEffect(() => {
     return () => {
-      console.log("demontado");
+      //console.log("demontado");
       isMounted.current = false;
     };
   }, []);
 
-  useEffect(() => {
-    console.log("PEticion hecha a", url, method,body);
+  useEffect(() => {    
     let json = {
       headers: {
         "Content-Type": "application/json",
         "x-api-key": "12345678",
-      }
-    }
-    if(method === 'POST') {
+      },
+    };
+    if (method === "POST") {
       json = {
         ...json,
         method,
-        body,        
-      }
-    }else {
+        body,
+      };
+    } else {
       json = {
         ...json,
-        method,        
-      }
-    }    
+        method,
+      };
+    }
     fetch(url, json)
       .then((resp) => resp.json())
       .then((data) => {
         if (isMounted.current) {
-          console.log(data);
+          //console.log(data);
           setState({
             page: data.Page,
             totalPage: data.TotalPages,
@@ -50,7 +50,7 @@ export const useFetch = (url, {method, body}) => {
             totalItems: data.TotalItems,
             players: data.Players,
           });
-        } else console.log("El set no se llamo");
+        }
       })
       .catch(() => {
         console.log("error peticion");
@@ -64,4 +64,10 @@ export const useFetch = (url, {method, body}) => {
       });
   }, [url, method, body]);
   return state;
+};
+
+useFetch.propTypes = {
+  ur: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
+  body: PropTypes.any.isRequired,
 };
