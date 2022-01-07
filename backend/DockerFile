@@ -1,0 +1,18 @@
+FROM  golang:latest
+
+LABEL maintainer="Juan <prueba@gmail.com>"
+
+WORKDIR /app
+
+COPY god.mod ./
+COPY god.sum ./
+
+RUN go mod download
+
+COPY . /.
+
+RUN go build ./cmd/main.go -o /app-docker
+
+EXPOSE 8000
+
+CMD [ "/app-docker" ]
