@@ -1,7 +1,9 @@
 package util
 
 import (
+	"log"
 	"os"
+	"strconv"
 	"sync"
 
 	"github.com/JuanMillan7818/FUT21/db"
@@ -32,6 +34,11 @@ func load(workers int) {
 func Start() {
 	db.ConnectedDB("")
 	if os.Getenv("REWRITEDATA") == "1" {
-		load(200)
+		workers, err := strconv.Atoi(os.Getenv("WORKERS"))
+		if err != nil {
+			log.Panic(err)
+		} else {
+			load(workers)
+		}
 	}
 }
