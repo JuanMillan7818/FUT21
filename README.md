@@ -21,7 +21,7 @@ Para ejecutar este proyecto se necesita las siguiente variables de entorno en el
 `DBNAME`  
 `PAGINATION`   
 `REWRITEDATA` 
-`WORKERS`
+`WORKERS`   
 
 La variable `REWRITEDATA` por defecto esta en 1, lo que significa que se **cargaran los datos de la api oficial de FIFA y formatear los datos para almacenarla en la base de datos local.**  
 `Puerto por defecto del servidor: ` **8000**
