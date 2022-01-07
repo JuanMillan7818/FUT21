@@ -24,6 +24,9 @@ Para ejecutar este proyecto se necesita las siguiente variables de entorno en el
 `WORKERS`
 
 La variable `REWRITEDATA` por defecto esta en 1, lo que significa que se **cargaran los datos de la api oficial de FIFA y formatear los datos para almacenarla en la base de datos local.**  
+
+Con otro valor diferente de 1 omitira esta carga de datos y consultara directamente a la base de datos local.
+
 `Puerto por defecto del servidor: ` **8000**
 
 La variable `WORKERS` permite determinar un numero fijo de `Go rutines`.  
