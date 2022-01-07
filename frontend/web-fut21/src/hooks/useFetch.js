@@ -19,7 +19,8 @@ export const useFetch = (url, { method, body }) => {
     };
   }, []);
 
-  useEffect(() => {    
+  useEffect(() => {   
+    // Se construye el body de forma dinamica 
     let json = {
       headers: {
         "Content-Type": "application/json",

@@ -12,8 +12,9 @@ export const PlayerCard = ({
 }) => {
   const navigate = useNavigate();
   const { setSearchExpand } = useContext(ApiContext);
-  const classImg = `img-player img${img}`;
+  const classImg = `img-player img${img}`; // manejar imagen generica de los jugadores mediante un contador
 
+  // Renderizar el componente para expandir y ver la informacion del jugador
   const handleExpandData = () => {
     setSearchExpand({firstName, lastName, positionFull, nation, club, classImg})
     navigate(`/search`);
