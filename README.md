@@ -21,9 +21,13 @@ Para ejecutar este proyecto se necesita las siguiente variables de entorno en el
 `DBNAME`  
 `PAGINATION`   
 `REWRITEDATA` 
+`WORKERS`
 
-La Variable `REWRITEDATA` por defecto esta en 1, lo que significa que se **cargaran los datos de la api oficial de FIFA y formatear los datos para almacenarla en la base de datos local.**  
+La variable `REWRITEDATA` por defecto esta en 1, lo que significa que se **cargaran los datos de la api oficial de FIFA y formatear los datos para almacenarla en la base de datos local.**  
 `Puerto por defecto del servidor: ` **8000**
+
+La variable `WORKERS` permite determinar un numero fijo de `Go rutines`.  
+En la carpeta `util` existe una funcion llamada `Start` la cual permite cargar los datos de la api oficial, utilizando una funcion concurrente y un numero de `Go rutines`.
 
 ### Estructura del backend
     backend
