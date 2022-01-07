@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export const useFetch = (url) => {
+export const useFetch = (url, {method, body}) => {
   const isMounted = useRef(true);
 
   const [state, setState] = useState({
@@ -18,10 +18,27 @@ export const useFetch = (url) => {
     };
   }, []);
 
-  useEffect(() => { 
-    fetch(url, {
-      headers: { "Content-Type": "application/json", "x-api-key": "12345678" },
-    })
+  useEffect(() => {
+    console.log("PEticion hecha a", url, method,body);
+    let json = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": "12345678",
+      }
+    }
+    if(method === 'POST') {
+      json = {
+        ...json,
+        method,
+        body,        
+      }
+    }else {
+      json = {
+        ...json,
+        method,        
+      }
+    }    
+    fetch(url, json)
       .then((resp) => resp.json())
       .then((data) => {
         if (isMounted.current) {
@@ -32,8 +49,8 @@ export const useFetch = (url) => {
             items: data.Items,
             totalItems: data.TotalItems,
             players: data.Players,
-          });          
-        } else console.log("El set no se llamo");        
+          });
+        } else console.log("El set no se llamo");
       })
       .catch(() => {
         console.log("error peticion");
@@ -45,6 +62,6 @@ export const useFetch = (url) => {
           players: [],
         });
       });
-  }, [url]);
+  }, [url, method, body]);
   return state;
 };

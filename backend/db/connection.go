@@ -31,8 +31,8 @@ func ConnectedDB(nameDB string) *sql.DB {
 		panic(err)
 	}
 
-	db.SetConnMaxLifetime(10 * time.Minute)
-	db.SetMaxIdleConns(5)
+	/*db.SetConnMaxLifetime(10 * time.Minute)
+	db.SetMaxIdleConns(5)*/
 
 	if err := db.Ping(); err != nil {
 		panic(err)
@@ -152,6 +152,10 @@ func GetTeamPlayers(data *md.TeamRequest) md.TeamResponse {
 			log.Panic(err)
 		}
 		list = append(list, tmp)
+	}
+
+	if list == nil {
+		list = []md.Player{}
 	}
 
 	var totalItemsAux string

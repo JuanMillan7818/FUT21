@@ -5,7 +5,7 @@ import { Search } from "./search/Search";
 export const App = () => {
   return (
     <>
-      <div className="container">
+      <div className="container animate__animated animate__fadeIn animate__fast">
         <div className="layer">
           <div className="parallelo"></div>
           <div className="imgBx"></div>

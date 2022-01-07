@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -28,8 +29,9 @@ func GetPlayersNames(e echo.Context) (err error) {
 	page := e.QueryParam("page")
 
 	if search == "" && order == "" {
-
+		fmt.Println("no hay nada")
 	}
+
 	pageIntm, err := strconv.ParseInt(page, 10, 0)
 	if err != nil {
 		log.Panic(err)

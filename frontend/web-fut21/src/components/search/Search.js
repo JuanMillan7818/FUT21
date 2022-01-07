@@ -1,18 +1,12 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { ApiContext } from "../context/ApiContext";
-import { useLocation, useNavigate } from "react-router-dom";
-import queryString from 'query-string'
 
 export const Search = ({ searchDefault }) => {
-  const { url, setUrl } = useContext(ApiContext);
+  const { setUrl, setParams} = useContext(ApiContext);
 
   const [search, setSearch] = useState("");
-  const [typeSearch, setTypeSearch] = useState(searchDefault);
-
-  const location = useLocation();
-  const navigate = useNavigate();
-  
+  const [typeSearch, setTypeSearch] = useState(searchDefault);  
 
   const handleInputChange = ({ target }) => {
     setSearch(target.value);
@@ -20,7 +14,27 @@ export const Search = ({ searchDefault }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(search, typeSearch);
+    console.log(search, typeSearch);        
+    if (typeSearch === "player") {      
+      setParams({
+        method: 'GET',        
+      })
+
+      setUrl(
+        `${process.env.REACT_APP_URL_PLAYER}page=1&order=asc&search=${search.trim()}`
+      );      
+    }else {
+      const json = {
+        Name: search.trim(),
+        Page: 1
+      }
+      setParams({        
+        method: 'POST',
+        body: JSON.stringify(json)
+      })
+      setUrl(`${process.env.REACT_APP_URL_TEAM}`)
+    }
+    setSearch('')
   };
 
   const handleSelectChange = ({ target }) => {

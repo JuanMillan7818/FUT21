@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { App } from "../components/App";
 import { ContentMain } from "../components/content/ContentMain";
+import { PlayerExpand } from "../components/player/PlayerExpand";
 
 
 export const AppRouter = () => {  
@@ -10,8 +11,7 @@ export const AppRouter = () => {
       <App />
       <Routes>
         <Route path="/" element={<ContentMain />} />
-        <Route path="/search" element={<ContentMain />} />
-        <Route path="/team" element={<ContentMain />} />
+        <Route path="/search" element={<PlayerExpand />} />        
       </Routes>
     </BrowserRouter>
   );
